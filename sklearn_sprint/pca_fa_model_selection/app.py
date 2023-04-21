@@ -209,16 +209,17 @@ def plot_pca_fa_analysis_side(n_samples, n_features, n_components):
 
 
 
-title = " Illustration of factor analysis vs PCA for dimensionality reduction of a noisy dataset "
+title = " Illustration of Model Selection with Probabilistic PCA and Factor Analysis (FA)"
 with gr.Blocks(title=title) as demo:
     gr.Markdown(f"# {title}")
-    gr.Markdown(" This example shows how one can Prinicipal Components Analysis (PCA) and Factor Analysis (FA) for model selection <br>"
+    gr.Markdown(" This example shows how one can use Prinicipal Components Analysis (PCA) and Factor Analysis (FA) for model selection by observing the likelihood of a held-out dataset with added noise <br>"
     " The number of samples (n_samples) will determine the number of data points to produce.  <br>"
     " The number of components (n_components) will determine the number of components each method will fit to, and will affect the likelihood of the held-out set.  <br>"
     " The number of features (n_components) determine the number of features the toy dataset X variable will have.  <br>"
-    " Play with the n_components parameter to see.<br>")
+    " For further details please see the sklearn docs:"    
+    )
 
-    gr.Markdown(" **[Demo is based on sklearn docs](https://scikit-learn.org/stable/auto_examples/decomposition/plot_pca_vs_fa_model_selection.html#sphx-glr-auto-examples-decomposition-plot-pca-vs-fa-model-selection-py)** <br>")
+    gr.Markdown(" **[Demo is based on sklearn docs found here](https://scikit-learn.org/stable/auto_examples/decomposition/plot_pca_vs_fa_model_selection.html#sphx-glr-auto-examples-decomposition-plot-pca-vs-fa-model-selection-py)** <br>")
 
     gr.Markdown(" **Dataset** : A toy dataset with corrupted with homoscedastic noise (noise variance is the same for each feature) or heteroscedastic noise (noise variance is the different for each feature) . <br>")
     gr.Markdown(" Different number of features and number of components affect how well the low rank space is recovered. <br>"
@@ -226,14 +227,14 @@ with gr.Blocks(title=title) as demo:
                )
 
     with gr.Row():
-        n_samples = gr.Slider(value=100, min=100, maximum=1000, step=100, label="n_samples")
-        n_components = gr.Slider(value=2, min=1, maximum=20, step=1, label="n_components")
-        n_features = gr.Slider(value=5, min=5, maximum=25, step=1, label="n_features")
+        n_samples = gr.Slider(value=100, minimum=10, maximum=1000, step=10, label="n_samples")
+        n_components = gr.Slider(value=2, minimum=1, maximum=20, step=1, label="n_components")
+        n_features = gr.Slider(value=5, minimum=5, maximum=25, step=1, label="n_features")
         
     
       # options for n_components    
     btn = gr.Button(value="Submit")
-    btn.click(plot_pca_fa_analysis_side, inputs= [n_samples, n_features, n_components], outputs= gr.Plot(label='Multi-output regression with decision trees') ) # 
+    btn.click(plot_pca_fa_analysis_side, inputs= [n_samples, n_features, n_components], outputs= gr.Plot(label='PCA vs FA Model Selection with added noise') ) # 
     
 
 demo.launch()
